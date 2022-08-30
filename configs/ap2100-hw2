@@ -124,3 +124,6 @@ CONFIG_PACKAGE_frr-vrrpd=y
 CONFIG_PACKAGE_frr-vtysh=y
 CONFIG_PACKAGE_frr-staticd=y
 # CONFIG_PACKAGE_quagga is not set
+# ------------------------------------#
+# Size reduction over-rides
+# CONFIG_PACKAGE_vim-full is not set
