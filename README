@@ -1,3 +1,11 @@
+# Opuntia 
+
+## Requirements
+
+At this time, the source directory needs to be installed in /home/ubuntu/opuntia
+This limitation will be removed in the future. This does not require ubuntu as the build OS only that the directory structure is required.
+
+
 For docker build:
 sudo apt-get update && sudo apt-get install -y make
 make docker_run

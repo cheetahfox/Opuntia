@@ -1,8 +1,8 @@
-Index: luci/modules/luci-base/luasrc/model/network.lua
+Index: luci/modules/luci-compat/luasrc/model/network.lua
 ===================================================================
 --- luci.orig/modules/luci-compat/luasrc/model/network.lua
-+++ luci/modules/modules/luci-compat/luasrc/model/network.lua
-@@ -439,7 +439,6 @@ function init(cursor)
++++ luci/modules/luci-compat/luasrc/model/network.lua
+@@ -440,7 +440,6 @@ function init(cursor)
  						port.label = role:upper()
  					end
  
@@ -14,7 +14,7 @@ Index: luci/modules/luci-base/htdocs/luci-static/resources/network.js
 ===================================================================
 --- luci.orig/modules/luci-base/htdocs/luci-static/resources/network.js
 +++ luci/modules/luci-base/htdocs/luci-static/resources/network.js
-@@ -564,7 +564,6 @@ function initNetworkState(refresh) {
+@@ -492,7 +492,6 @@ function initNetworkState(refresh) {
  							else
  								port.label = role.toUpperCase();
  
@@ -26,7 +26,7 @@ Index: luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/s
 ===================================================================
 --- luci.orig/modules/luci-mod-network/htdocs/luci-static/resources/view/network/switch.js
 +++ luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/switch.js
-@@ -8,8 +8,11 @@ function parse_portvalue(section_id) {
+@@ -12,8 +12,11 @@ function parse_portvalue(section_id) {
  	var ports = L.toArray(uci.get('network', section_id, 'ports'));
  
  	for (var i = 0; i < ports.length; i++) {
@@ -38,32 +38,7 @@ Index: luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/s
  		if (m && m[1] == this.option)
  			return m[2] || 'u';
  	}
-@@ -295,16 +298,22 @@ return L.view.extend({
- 
- 			o.write = function(section_id, value) {
- 				var topology = this.section.topology,
-+				    port,
- 				    values = [];
- 
- 				for (var i = 0; i < port_opts.length; i++) {
- 					var tagging = port_opts[i].formvalue(section_id),
- 					    portspec = Array.isArray(topology.ports) ? topology.ports[i] : null;
- 
-+					if (port_opts[i].role)
-+						port = port_opts[i].role;
-+					else
-+						port = port_opts[i].option;
-+
- 					if (tagging == 't')
--						values.push(port_opts[i].option + tagging);
-+						values.push(port + tagging);
- 					else if (tagging == 'u')
--						values.push(port_opts[i].option);
-+						values.push(port);
- 
- 					if (portspec && portspec.device) {
- 						var old_tag = port_opts[i].cfgvalue(section_id),
-@@ -347,6 +356,7 @@ return L.view.extend({
+@@ -355,6 +358,7 @@ return view.extend({
  
  				o.cfgvalue = parse_portvalue;
  				o.validate = validate_portvalue;
