@@ -142,7 +142,7 @@ CONFIG_GRUB_TIMEOUT="5"
 # Image Options
 #
 CONFIG_TARGET_KERNEL_PARTSIZE=16
-CONFIG_TARGET_ROOTFS_PARTSIZE=256
+CONFIG_TARGET_ROOTFS_PARTSIZE=512
 CONFIG_TARGET_ROOTFS_PARTNAME=""
 
 CONFIG_VERSION_PRODUCT="EV1000"
@@ -154,7 +154,7 @@ CONFIG_VERSION_HWREV="4"
 CONFIG_PACKAGE_vim-full=y
 
 #
-# Kernel build options for k3s
+# Kernel build options for container support
 #
 CONFIG_KERNEL_BLK_CGROUP=y
 CONFIG_KERNEL_CGROUPS=y
@@ -228,13 +228,13 @@ CONFIG_PACKAGE_hardware-watchdog=y
 # CONFIG_PACKAGE_imagestream-envoy-installer is not set
 # CONFIG_PACKAGE_imagestream-overrides is not set
 # CONFIG_PACKAGE_luci-app-isis-license is not set
-CONFIG_PACKAGE_imagestream-snmp-mibs=y
+# CONFIG_PACKAGE_imagestream-snmp-mibs is not set
 # CONFIG_PACKAGE_imagestream-utm-configs is not set
 # CONFIG_PACKAGE_imagestream-wifi-ap-configs is not set
 # CONFIG_PACKAGE_imagestream-wifi-ap-configs-i is not set
 # CONFIG_PACKAGE_imagestream-wifi-ap-configs-i.v3 is not set
 CONFIG_PACKAGE_imagestream-envoy-configs=y
-CONFIG_PACKAGE_imagestream-wifi-ap-bootstrap=y
+# CONFIG_PACKAGE_imagestream-wifi-ap-bootstrap is not set
 # CONFIG_PACKAGE_imagestream-wifi-ap-configs.v3 is not set
 # CONFIG_PACKAGE_imagestream-wifi-ap-installer is not set
 # CONFIG_PACKAGE_imagestream-wifi-ap-installer-i is not set
@@ -252,10 +252,10 @@ CONFIG_PACKAGE_stats=y
 # CONFIG_PACKAGE_kmod-ath10k-ct is not set
 # CONFIG_PACKAGE_ath10k-firmware-qca988x is not set
 # CONFIG_PACKAGE_ath10k-firmware-qca988x-ct is not set
-CONFIG_PACKAGE_ath10k-firmware-qca9888-ct-htt=y
-CONFIG_PACKAGE_ath10k-firmware-qca988x-ct-full-htt=y
-CONFIG_PACKAGE_ath10k-firmware-qca9984-ct-htt=y
-CONFIG_PACKAGE_ath10k-firmware-qca99x0-ct-htt=y
+# CONFIG_PACKAGE_ath10k-firmware-qca9888-ct-htt is not set
+# CONFIG_PACKAGE_ath10k-firmware-qca988x-ct-full-htt is not set
+# CONFIG_PACKAGE_ath10k-firmware-qca9984-ct-htt is not set
+# CONFIG_PACKAGE_ath10k-firmware-qca99x0-ct-htt is not set
 
 CONFIG_PACKAGE_kmod-usb-acm=y
 # CONFIG_PACKAGE_kmod-usb-atm is not set
@@ -469,4 +469,4 @@ CONFIG_PACKAGE_kmod-mt7915e=y
 # CONFIG_PACKAGE_kismet-remotecap is not set
 CONFIG_PACKAGE_jool-tools-netfilter=y
 CONFIG_PACKAGE_kmod-jool-netfilter=y
-CONFIG_PACKAGE_tailscale=y
+# CONFIG_PACKAGE_tailscale is not set
