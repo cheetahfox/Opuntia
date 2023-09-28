@@ -469,4 +469,6 @@ CONFIG_PACKAGE_kmod-mt7915e=y
 # CONFIG_PACKAGE_kismet-remotecap is not set
 CONFIG_PACKAGE_jool-tools-netfilter=y
 CONFIG_PACKAGE_kmod-jool-netfilter=y
+CONFIG_PACKAGE_containerd=y
+CONFIG_PACKEGE_block-mount=y
 # CONFIG_PACKAGE_tailscale is not set
