@@ -2,7 +2,7 @@ Index: build_dir/package/network/services/hostapd/files/hostapd.sh
 ===================================================================
 --- build_dir.orig/package/network/services/hostapd/files/hostapd.sh
 +++ build_dir/package/network/services/hostapd/files/hostapd.sh
-@@ -536,6 +536,9 @@ hostapd_set_bss_options() {
+@@ -559,6 +559,9 @@ hostapd_set_bss_options() {
  		wep_rekey wpa_group_rekey wpa_pair_rekey wpa_master_rekey wpa_strict_rekey \
  		wpa_disable_eapol_key_retries tdls_prohibit \
  		maxassoc max_inactivity disassoc_low_ack isolate auth_cache \
@@ -12,7 +12,7 @@ Index: build_dir/package/network/services/hostapd/files/hostapd.sh
  		wps_pushbutton wps_label ext_registrar wps_pbc_in_m1 wps_ap_setup_locked \
  		wps_independent wps_device_type wps_device_name wps_manufacturer wps_pin \
  		macfilter ssid utf8_ssid wmm uapsd hidden short_preamble rsn_preauth \
-@@ -634,6 +637,74 @@ hostapd_set_bss_options() {
+@@ -658,6 +661,74 @@ hostapd_set_bss_options() {
  
  	local vlan_possible=""
  
@@ -86,82 +86,8 @@ Index: build_dir/package/network/services/hostapd/files/hostapd.sh
 +
  	case "$auth_type" in
  		none|owe)
- 			json_get_vars owe_transition_bssid owe_transition_ssid
-@@ -704,73 +775,6 @@ hostapd_set_bss_options() {
- 				[ -n "$fils_dhcp" ] && append bss_conf "dhcp_server=$fils_dhcp" "$N"
- 			}
- 
--			set_default auth_port 1812
--			set_default dae_port 3799
--			set_default request_cui 0
--
--                        # leave the default option for legacy compatibility
--                        [ -z "$auth_server" ] || append bss_conf "auth_server_addr=$auth_server" "$N"
--                        [ -z "$auth_server" ] || append bss_conf "auth_server_port=$auth_port" "$N"
--                        [ -z "$auth_secret" ] || append bss_conf "auth_server_shared_secret=$auth_secret" "$N"
--
--                        # List of fallback RADIUS servers, ip_add@secret[:port]
--			[ -n "$auth_servers" ] && {
--                        	json_select "auth_servers"
--                        	local Index="1"
--                        	while json_get_type Var $Index && [ "$Var" = string ]; do
--                                	json_get_var Var "$((Index++))"
--
--                                	ip_addr=$(echo "$Var" | cut -d"@" -f2 | cut -d":" -f1)
--                                	append bss_conf "auth_server_addr=$ip_addr" "$N"
--
--                                	port=$(echo "$Var" | cut -d"@" -f2 | cut -d":" -f2)
--                                	if ! echo "$port" | egrep -q '^[0-9]+$' ; then
--                                        	port=1812
--                                	fi
--                                	append bss_conf "auth_server_port=$port" "$N"
--
--                                	secret=$(echo "$Var" | cut -d"@" -f1)
--                                	append bss_conf "auth_server_shared_secret=$secret" "$N"
--                        	done
--                        	json_select ".."
--			}
--
-- 			[ -n "$radius_auth_req_attr" ] && append bss_conf "radius_auth_req_attr=$radius_auth_req_attr" "$N"
-- 			[ -n "$radius_acct_req_attr" ] && append bss_conf "radius_acct_req_attr=$radius_acct_req_attr" "$N"
-- 
--                        # List of fallback RADIUS servers, ip_add@secret[:port]
--			[ -n "$acct_servers" ] && {
--                        	json_select "acct_servers"
--                        	local Index="1"
--                        	while json_get_type Var $Index && [ "$Var" = string ]; do
--                                	json_get_var Var "$((Index++))"
--
--                                	ip_addr=$(echo "$Var" | cut -d"@" -f2 | cut -d":" -f1)
--                                	append bss_conf "acct_server_addr=$ip_addr" "$N"
--
--                                	port=$(echo "$Var" | cut -d"@" -f2 | cut -d":" -f2)
--                                	if ! echo "$port" | egrep -q '^[0-9]+$' ; then
--                                        	port=1813
--                                	fi
--                                	append bss_conf "acct_server_port=$port" "$N"
--
--                                	secret=$(echo "$Var" | cut -d"@" -f1)
--                                	append bss_conf "acct_server_shared_secret=$secret" "$N"
--                        	done
--                        	json_select ".."
--			}
--
--			[ "$request_cui" -gt 0 ] && append bss_conf "radius_request_cui=$request_cui" "$N"
--			[ -n "$eap_reauth_period" ] && append bss_conf "eap_reauth_period=$eap_reauth_period" "$N"
--
--			[ -n "$dae_client" -a -n "$dae_secret" ] && {
--				append bss_conf "radius_das_port=$dae_port" "$N"
--				append bss_conf "radius_das_client=$dae_client $dae_secret" "$N"
--			}
--			json_for_each_item append_radius_auth_req_attr radius_auth_req_attr
--
--			[ -n "$ownip" ] && append bss_conf "own_ip_addr=$ownip" "$N"
--			[ -n "$radius_client_addr" ] && append bss_conf "radius_client_addr=$radius_client_addr" "$N"
- 			append bss_conf "eapol_key_index_workaround=1" "$N"
- 			append bss_conf "ieee8021x=1" "$N"
- 
-@@ -783,6 +787,11 @@ hostapd_set_bss_options() {
+ 			json_get_vars owe_transition_bssid owe_transition_ssid owe_transition_ifname
+@@ -774,6 +845,11 @@ hostapd_set_bss_options() {
  			append bss_conf "wep_default_key=$wep_keyidx" "$N"
  			[ -n "$wep_rekey" ] && append bss_conf "wep_rekey_period=$wep_rekey" "$N"
  		;;
@@ -172,4 +98,4 @@ Index: build_dir/package/network/services/hostapd/files/hostapd.sh
 +
  	esac
  
- 	local auth_algs=$((($auth_mode_shared << 1) | $auth_mode_open))
+ 	case "$auth_type" in
