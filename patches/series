@@ -39,8 +39,6 @@ kernel/0076-ar8327-fix-init-bug.patch
 packages/0182-ath10k-ct-licensed-channels.patch
 0003-revert-package-makefile-overlay-functionality.patch
 packages/0016-ImageStream-WiFi-regdb.patch
-packages/0197-quagga-version-1.2.1.patch
-packages/0197-quagga-run-as-root-to-write-conf-to-overlay.patch
 packages/0200-batman-adv-fix-expected-throughput-ath10k.patch
 kernel/0081-remove-ip_gre-module-due-to-openvswitch-conflict.patch
 packages/0211-firewall-allow-web-ssh-snmp-default-ports.patch
