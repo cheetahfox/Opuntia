@@ -49,7 +49,6 @@ packages/0224-mwan3-check-dynamic-interfaces.patch
 packages/0225-gcom-ndis-check-no-carrier.patch
 packages/0232-decrease-ath10k-ct-buffers.patch
 packages/0237-strongswan-increase-starter-timeout.patch
-packages/0238-nodogsplash-imagestream
 kernel/0084-ag71xx-fix-max-mtu.patch
 0230-lower-min-free-kbytes-avoid-oom.patch
 0229-ath79-add-compex-dts-support.patch
