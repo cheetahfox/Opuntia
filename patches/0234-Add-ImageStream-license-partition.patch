@@ -20,18 +20,18 @@ Index: build_dir/target/linux/ramips/dts/mt7621_mikrotik_routerboard-m11g.dts
 +	mtd-mac-address = <&imagestream 0x0010>;
  };
  
- &switch0 {
+ &ethernet {
 Index: build_dir/target/linux/ramips/image/mt7621.mk
 ===================================================================
 --- build_dir.orig/target/linux/ramips/image/mt7621.mk
 +++ build_dir/target/linux/ramips/image/mt7621.mk
-@@ -803,7 +803,7 @@ define Device/MikroTik
+@@ -1632,7 +1632,7 @@ TARGET_DEVICES += mercusys_mr70x-v1
+ define Device/MikroTik
    $(Device/dsa-migration)
    DEVICE_VENDOR := MikroTik
-   BLOCKSIZE := 64k
 -  IMAGE_SIZE := 16128k
 +  IMAGE_SIZE := 16124k
-   DEVICE_PACKAGES := kmod-usb3
+   DEVICE_PACKAGES := kmod-usb3 -uboot-envtools
    KERNEL_NAME := vmlinuz
    KERNEL := kernel-bin | append-dtb-elf
 Index: build_dir/target/linux/ramips/base-files/etc/hotplug.d/ieee80211/10_fix_wifi_mac
