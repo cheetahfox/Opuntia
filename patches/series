@@ -45,7 +45,6 @@ packages/0211-firewall-allow-web-ssh-snmp-default-ports.patch
 packages/0215-batman-adv-lower-node-timeout.patch
 0164-Add-wpj563-support.patch
 packages/0220-ath10k-ct-update-driver.patch
-packages/0221-add-telit-lte-modem-support.patch
 packages/0224-mwan3-check-dynamic-interfaces.patch
 packages/0225-gcom-ndis-check-no-carrier.patch
 packages/0232-decrease-ath10k-ct-buffers.patch
