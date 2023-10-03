@@ -1,27 +1,23 @@
-Index: luci/applications/luci-app-statistics/root/usr/bin/stat-genconfig
+Index: luci/applications/luci-app-statistics/root/usr/libexec/stat-genconfig
 ===================================================================
---- luci.orig/applications/luci-app-statistics/root/usr/bin/stat-genconfig
-+++ luci/applications/luci-app-statistics/root/usr/bin/stat-genconfig
-@@ -71,7 +71,9 @@ function config_generic( c, singles, boo
- 					c[key] = preprocess[key](c[key])
- 				end
+--- luci.orig/applications/luci-app-statistics/root/usr/libexec/stat-genconfig
++++ luci/applications/luci-app-statistics/root/usr/libexec/stat-genconfig
+@@ -136,14 +136,16 @@ function config_generic(c, singles, bool
+ 			if (preprocess[key])
+ 				c[key] = preprocess[key](c[key]);
  
--				str = str .. _string( c[key], key, nopad )
-+				if c[key] then
-+					str = str .. _string( c[key], key, nopad )
-+				end
- 			end
- 		end
+-			str += _string(c[key], key, nopad);
++			if c[key]
++				str += _string(c[key], key, nopad);
+ 		}
  
-@@ -81,8 +83,10 @@ function config_generic( c, singles, boo
- 					c[key] = preprocess[key](c[key])
- 				end
+ 		for (let key in bools) {
+ 			if (preprocess[key])
+ 				c[key] = preprocess[key](c[key]);
  
--				str = str .. _bool( c[key], key, nopad )
-+				if c[key] then
-+					str = str .. _bool( c[key], key, nopad )
-+				end
- 			end
- 		end
+-			str += _bool(c[key], key, nopad);
++			if c[key]
++				str += _bool(c[key], key, nopad);
+ 		}
  
- 		if type(lists) == "table" then
+ 		if (lists)
