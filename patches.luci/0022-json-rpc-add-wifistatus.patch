@@ -1,5 +1,5 @@
---- a/modules/luci-base/luasrc/sys.lua
-+++ b/modules/luci-base/luasrc/sys.lua
+--- a/modules/luci-lua-runtime/luasrc/sys.lua
++++ b/modules/luci-lua-runtime/luasrc/sys.lua
 @@ -621,6 +621,22 @@ function wifi.getiwinfo(ifname)
  	end
  end
