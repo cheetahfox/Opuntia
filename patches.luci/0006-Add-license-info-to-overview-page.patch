@@ -8,23 +8,20 @@ Subject: [PATCH 06/14] Add license info to overview page. Change distro name
  .../modules/luci-mod-status/luasrc/view/admin_status/index.htm           | 6 ++++++
  1 file changed, 6 insertions(+)
 
-Index: luci/modules/luci-base/src/mkversion.sh
+Index: luci/modules/luci-lua-runtime/src/mkversion.sh
 ===================================================================
---- luci.orig/modules/luci-base/src/mkversion.sh
-+++ luci/modules/luci-base/src/mkversion.sh
-@@ -14,9 +14,15 @@ if pcall(dofile, "/etc/opuntia_release")
- 			distversion = distversion .. " " .. distrevision
+--- luci.orig/modules/luci-lua-runtime/src/mkversion.sh
++++ luci/modules/luci-lua-runtime/src/mkversion.sh
+@@ -15,8 +15,11 @@ if pcall(dofile, "/etc/openwrt_release")
  		end
  	end
-+	distproduct = _G.DISTRIB_PRODUCT
-+	distmanufacturer = _G.DISTRIB_MANUFACTURER
-+	disthwrev = _G.DISTRIB_HWREV
  else
- 	distname    = "Opuntia"
+-	distname    = "OpenWrt"
++	distname    = "Opuntia"
  	distversion = "Development Snapshot"
-+	distproduct = "Unknown"
 +	distmanufacturer = "ISis ImageStream Internet Solutions"
-+	disthwrev = "Unknown"
++	distproduct = "Unknown"
++	distwrev = "Unknown"
  end
  
  luciname    = "${3:-LuCI}"
@@ -32,31 +29,24 @@ Index: luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/inc
 ===================================================================
 --- luci.orig/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
 +++ luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
-@@ -19,21 +19,13 @@ return baseclass.extend({
- 	load: function() {
+@@ -25,16 +25,12 @@ return baseclass.extend({
  		return Promise.all([
  			L.resolveDefault(callSystemBoard(), {}),
--			L.resolveDefault(callSystemInfo(), {}),
--			fs.lines('/usr/lib/lua/luci/version.lua')
-+			L.resolveDefault(callSystemInfo(), {})
+ 			L.resolveDefault(callSystemInfo(), {}),
+-			L.resolveDefault(callLuciVersion(), { revision: _('unknown version'), branch: 'LuCI' })
  		]);
  	},
  
  	render: function(data) {
  		var boardinfo   = data[0],
--		    systeminfo  = data[1],
+ 		    systeminfo  = data[1],
 -		    luciversion = data[2];
 -
--		luciversion = luciversion.filter(function(l) {
--			return l.match(/^\s*(luciname|luciversion)\s*=/);
--		}).map(function(l) {
--			return l.replace(/^\s*\w+\s*=\s*['"]([^'"]+)['"].*$/, '$1');
--		}).join(' ');
-+		    systeminfo  = data[1];
+-		luciversion = luciversion.branch + ' ' + luciversion.revision;
  
  		var datestr = null;
  
-@@ -55,7 +47,9 @@ return baseclass.extend({
+@@ -56,7 +52,9 @@ return baseclass.extend({
  			_('Model'),            boardinfo.model,
  			_('Architecture'),     boardinfo.system,
  			_('Target Platform'),  (L.isObject(boardinfo.release) ? boardinfo.release.target : ''),
