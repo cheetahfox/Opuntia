@@ -20,54 +20,9 @@ Index: build_dir/feeds/packages/net/openvpn/files/openvpn.init
  STOP=10
  
  USE_PROCD=1
-@@ -82,13 +82,40 @@ openvpn_add_instance() {
- 		--config "$conf"
- 	procd_set_param file "$dir/$conf"
- 	procd_set_param term_timeout 15
--	procd_set_param respawn
--	procd_append_param respawn 3600
--	procd_append_param respawn 5
--	procd_append_param respawn -1
-+	procd_set_param respawn 3600 10 0
- 	procd_close_instance
- }
+@@ -220,6 +220,53 @@ start_uci_instance() {
  
-+openvpn_fixup_script_security() {
-+	if [ "$#" -gt 1 ] ; then
-+		config_set "$s" script_security "$1"
-+	fi
-+}
-+
-+openvpn_getkey() {
-+        if [[ ${secret_phrase} =~ ^[:xdigit:]* ]]; then
-+                secret_phrase=$(echo -n ${secret_phrase} | md5sum | awk '{print $1}')
-+        fi
-+
-+        len=${#secret_phrase}
-+        let i=0
-+        while [ $((i)) -le $((keylen_chars/len)) ] ; do
-+                echo -n $secret_phrase
-+                let i=i+1
-+        done
-+}
-+
-+openvpn_fixup_passphrase() {
-+	keylen_chars=$((2048/8*2))
-+	line=$(openvpn_getkey)
-+	echo '#'
-+	echo '# 2048 bit OpenVPN static key'
-+	echo '#'
-+	echo '-----BEGIN OpenVPN Static key V1-----'
-+	echo "$(echo $line | cut -b 1-${keylen_chars} | sed -e 's/.\{32\}/&\n/g')"
-+	echo '-----END OpenVPN Static key V1-----'
-+}
-+
- start_instance() {
- 	local s="$1"
- 
-@@ -111,6 +138,53 @@ start_instance() {
- 	[ ! -d "/var/etc" ] && mkdir -p "/var/etc"
- 	[ -f "/var/etc/openvpn-$s.conf" ] && rm "/var/etc/openvpn-$s.conf"
+ 	create_temp_file "/var/etc/openvpn-$s.conf"
  
 +	# Check to be sure we specify a device. If none specified, we use dynamic tun/tap -- Scott
 +        config_get dev "$s" 'dev'
