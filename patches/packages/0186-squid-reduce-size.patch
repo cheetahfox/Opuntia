@@ -9,10 +9,10 @@ Index: build_dir/feeds/packages/net/squid/Makefile
 -	--enable-delay-pools \
 -	--enable-cache-digests \
 +	--enable-storeio=no \
-++	--enable-diskio=no \
-++	--disable-wccp \
-++	--disable-wccpv2 \
-++	--disable-htcp \
++	--enable-diskio=no \
++	--disable-wccp \
++	--disable-wccpv2 \
++	--disable-htcp \
  	--enable-linux-netfilter \
  	--disable-unlinkd \
  	--enable-x-accelerator-vary \
