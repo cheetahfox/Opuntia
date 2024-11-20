@@ -2,15 +2,15 @@ Index: build_dir/package/network/services/dnsmasq/files/dnsmasq.init
 ===================================================================
 --- build_dir.orig/package/network/services/dnsmasq/files/dnsmasq.init
 +++ build_dir/package/network/services/dnsmasq/files/dnsmasq.init
-@@ -487,6 +487,7 @@ dhcp_add() {
+@@ -515,6 +515,7 @@ dhcp_add() {
  	local dhcp6range="::"
  	local nettag
  	local tags
-+        local __nets __addr
++    local __nets __addr
  
  	config_get net "$cfg" interface
  	[ -n "$net" ] || return 0
-@@ -512,9 +513,41 @@ dhcp_add() {
+@@ -540,12 +541,44 @@ dhcp_add() {
  	# Do not support non-static interfaces for now
  	[ static = "$proto" ] || return 0
  
@@ -43,12 +43,15 @@ Index: build_dir/package/network/services/dnsmasq/files/dnsmasq.init
 +		fi
 +	fi
 +
+ 	ipaddr="${subnet%%/*}"
+ 	prefix_or_netmask="${subnet##*/}"
+ 
  	# Override interface netmask with dhcp config if applicable
- 	config_get netmask "$cfg" netmask "${subnet##*/}"
+ 	config_get netmask "$cfg" netmask
  
 +	logger -t dnsmasq \
 +		"Using subnet $subnet for network $net"
 +
+ 	[ -n "$netmask" ] && prefix_or_netmask="$netmask"
+ 
  	#check for an already active dhcp server on the interface, unless 'force' is set
- 	config_get_bool force "$cfg" force 0
- 	[ $force -gt 0 ] || dhcp_check "$ifname" || return 0
