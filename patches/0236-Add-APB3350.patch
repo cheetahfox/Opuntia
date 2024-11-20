@@ -1,47 +1,19 @@
-Index: build_dir.ap2000/target/linux/bcm27xx/image/Makefile
+Index: build_dir/target/linux/bcm27xx/image/Makefile
 ===================================================================
---- build_dir.ap2000.orig/target/linux/bcm27xx/image/Makefile
-+++ build_dir.ap2000/target/linux/bcm27xx/image/Makefile
-@@ -166,6 +166,7 @@ define Device/rpi-4
+--- build_dir.orig/target/linux/bcm27xx/image/Makefile
++++ build_dir/target/linux/bcm27xx/image/Makefile
+@@ -231,6 +231,7 @@ define Device/apb3500
  endef
  ifeq ($(SUBTARGET),bcm2711)
    TARGET_DEVICES += apb3500
 +  TARGET_DEVICES += apb3350
  endif
  
- define Device/apb3500
-@@ -177,6 +178,27 @@ define Device/apb3500
-   DEVICE_RENAME_DTS := bcm2711-rpi-cm4
-   SUPPORTED_DEVICES := \
- 	imagestream,apb3500 \
-+	imagestream,apb3350 \
-+	raspberrypi,4-compute-module \
-+	raspberrypi,4-model-b
-+  DEVICE_PACKAGES := \
-+	cypress-firmware-43455-sdio \
-+	cypress-nvram-43455-sdio-rpi-4b \
-+	kmod-brcmfmac wpad-basic-wolfssl
-+  IMAGE/sysupgrade.img.gz := boot-common | boot-2711 | sdcard-img | gzip | append-metadata
-+  IMAGE/factory.img.gz := boot-common | boot-2711 | sdcard-img | gzip
-+endef
-+
-+define Device/apb3350
-+  DEVICE_VENDOR := ImageStream
-+  DEVICE_MODEL := apb3350
-+  DEVICE_VARIANT := (64bit)
-+  KERNEL_IMG := kernel8.img
-+  DEVICE_DTS := broadcom/bcm2711-is-apb3350
-+  DEVICE_RENAME_DTS := bcm2711-rpi-cm4
-+  SUPPORTED_DEVICES := \
-+	imagestream,apb3350 \
-+	imagestream,apb3500 \
- 	raspberrypi,4-compute-module \
- 	raspberrypi,4-model-b
-   DEVICE_PACKAGES := \
-Index: build_dir.ap2000/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3350.dts
+ $(eval $(call BuildImage))
+Index: build_dir/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3350.dts
 ===================================================================
 --- /dev/null
-+++ build_dir.ap2000/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3350.dts
++++ build_dir/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3350.dts
 @@ -0,0 +1,672 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/dts-v1/;
@@ -715,9 +687,9 @@ Index: build_dir.ap2000/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-
 +			   <&spi0>, "dmas:8=", <&dma40>;
 +	};
 +};
-Index: build_dir.ap2000/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3350.dts
+Index: build_dir/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3350.dts
 ===================================================================
 --- /dev/null
-+++ build_dir.ap2000/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3350.dts
++++ build_dir/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3350.dts
 @@ -0,0 +1 @@
 +#include "../../../../arm/boot/dts/bcm2711-is-apb3350.dts"
