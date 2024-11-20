@@ -1,10 +1,10 @@
-Index: build_dir.ap2000/target/linux/bcm27xx/image/Makefile
+Index: build_dir/target/linux/bcm27xx/image/Makefile
 ===================================================================
---- build_dir.ap2000.orig/target/linux/bcm27xx/image/Makefile
-+++ build_dir.ap2000/target/linux/bcm27xx/image/Makefile
-@@ -23,7 +23,8 @@ define Build/boot-common
- 	mcopy -i $@.boot config.txt ::
+--- build_dir.orig/target/linux/bcm27xx/image/Makefile
++++ build_dir/target/linux/bcm27xx/image/Makefile
+@@ -29,7 +29,8 @@ define Build/boot-common
  	mcopy -i $@.boot distroconfig.txt ::
+ 	mcopy -i $@.boot $@-partuuid.txt ::partuuid.txt
  	mcopy -i $@.boot $(IMAGE_KERNEL) ::$(KERNEL_IMG)
 -	$(foreach dts,$(shell echo $(DEVICE_DTS)),mcopy -i $@.boot $(DTS_DIR)/$(dts).dtb ::;)
 +	$(foreach dts,$(shell echo $(DEVICE_DTS)),mcopy -D o -i $@.boot $(KDIR)/image-$(notdir $(firstword $(dts))).dtb \
@@ -12,7 +12,7 @@ Index: build_dir.ap2000/target/linux/bcm27xx/image/Makefile
  	mmd -i $@.boot ::/overlays
  	mcopy -i $@.boot $(DTS_DIR)/overlays/*.dtbo ::/overlays/
  	mcopy -i $@.boot $(DTS_DIR)/overlays/README ::/overlays/
-@@ -61,6 +62,7 @@ define Device/Default
+@@ -68,6 +69,7 @@ define Device/Default
    IMAGES := factory.img.gz sysupgrade.img.gz
    IMAGE/sysupgrade.img.gz := boot-common | boot-2708 | sdcard-img | gzip | append-metadata
    IMAGE/factory.img.gz := boot-common | boot-2708 | sdcard-img | gzip
@@ -20,12 +20,8 @@ Index: build_dir.ap2000/target/linux/bcm27xx/image/Makefile
  endef
  
  define Device/rpi
-@@ -163,7 +165,26 @@ define Device/rpi-4
-   IMAGE/factory.img.gz := boot-common | boot-2711 | sdcard-img | gzip
- endef
- ifeq ($(SUBTARGET),bcm2711)
--  TARGET_DEVICES += rpi-4
-+  TARGET_DEVICES += apb3500
+@@ -209,4 +211,26 @@ ifeq ($(SUBTARGET),bcm2712)
+   TARGET_DEVICES += rpi-5
  endif
  
 +define Device/apb3500
@@ -46,12 +42,15 @@ Index: build_dir.ap2000/target/linux/bcm27xx/image/Makefile
 +  IMAGE/sysupgrade.img.gz := boot-common | boot-2711 | sdcard-img | gzip | append-metadata
 +  IMAGE/factory.img.gz := boot-common | boot-2711 | sdcard-img | gzip
 +endef
++ifeq ($(SUBTARGET),bcm2711)
++  TARGET_DEVICES += apb3500
++endif
 +
  $(eval $(call BuildImage))
-Index: build_dir.ap2000/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3500.dts
+Index: build_dir/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3500.dts
 ===================================================================
 --- /dev/null
-+++ build_dir.ap2000/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3500.dts
++++ build_dir/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-apb3500.dts
 @@ -0,0 +1,672 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/dts-v1/;
@@ -725,16 +724,16 @@ Index: build_dir.ap2000/target/linux/bcm27xx/files/arch/arm/boot/dts/bcm2711-is-
 +			   <&spi0>, "dmas:8=", <&dma40>;
 +	};
 +};
-Index: build_dir.ap2000/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3500.dts
+Index: build_dir/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3500.dts
 ===================================================================
 --- /dev/null
-+++ build_dir.ap2000/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3500.dts
++++ build_dir/target/linux/bcm27xx/files/arch/arm64/boot/dts/broadcom/bcm2711-is-apb3500.dts
 @@ -0,0 +1 @@
 +#include "../../../../arm/boot/dts/bcm2711-is-apb3500.dts"
-Index: build_dir.ap2000/target/linux/bcm27xx/image/config.txt
+Index: build_dir/target/linux/bcm27xx/image/config.txt
 ===================================================================
---- build_dir.ap2000.orig/target/linux/bcm27xx/image/config.txt
-+++ build_dir.ap2000/target/linux/bcm27xx/image/config.txt
+--- build_dir.orig/target/linux/bcm27xx/image/config.txt
++++ build_dir/target/linux/bcm27xx/image/config.txt
 @@ -12,3 +12,5 @@ include distroconfig.txt
  
  [all]
