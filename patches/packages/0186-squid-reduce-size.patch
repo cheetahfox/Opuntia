@@ -2,24 +2,17 @@ Index: build_dir/feeds/packages/net/squid/Makefile
 ===================================================================
 --- build_dir.orig/feeds/packages/net/squid/Makefile
 +++ build_dir/feeds/packages/net/squid/Makefile
-@@ -67,15 +67,18 @@ endef
- 
- CONFIGURE_ARGS += \
- 	--config-cache \
-+	--enable-storeio=no \
-+	--enable-diskio=no \
-+	--disable-wccp \
-+	--disable-wccpv2 \
-+	--disable-htcp \
- 	--datadir=/usr/share/squid \
+@@ -74,8 +74,11 @@ CONFIGURE_ARGS += \
  	--libexecdir=/usr/lib/squid \
  	--sysconfdir=/etc/squid \
- 	--enable-shared \
  	--disable-static \
 -	--enable-delay-pools \
- 	--enable-kill-parent-hack \
- 	--enable-ssl \
 -	--enable-cache-digests \
++	--enable-storeio=no \
+++	--enable-diskio=no \
+++	--disable-wccp \
+++	--disable-wccpv2 \
+++	--disable-htcp \
  	--enable-linux-netfilter \
  	--disable-unlinkd \
  	--enable-x-accelerator-vary \
