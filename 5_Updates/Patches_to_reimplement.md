@@ -1,0 +1,61 @@
+# Patches to reimpliment 
+
+This lists the patches that need to be reimplemented. In 5.0 the changes have been so large that I can't just fix the patches.
+
+---
+
+### 0087-Set-default-ssid-Opuntia.patch
+
+This patch was used to set the default ssid. This shell script doesn't seem to exist anymore so I will have to figure out a similar way to do this. 
+
+```
+From e275386987a0ed3506d0ca8e49977e13d1f29a5a Mon Sep 17 00:00:00 2001
+From: syoder <syoder@imagestream.com>
+Date: Wed, 25 Sep 2013 17:08:49 -0500
+Subject: [PATCH] Set default configs for ap
+
+---
+ package/kernel/mac80211/files/lib/wifi/mac80211.sh |   2 +-
+ .../network/config/firewall/files/firewall.config  | 295 ++++++++-------------
+ target/linux/ar71xx/base-files.mk                  |   6 +-
+ target/linux/ar71xx/base-files/etc/config/network  |  20 +-
+ .../base-files/etc/uci-defaults/10_wifi_mesh       |  52 ++++
+ 5 files changed, 180 insertions(+), 195 deletions(-)
+ create mode 100755 target/linux/ar71xx/base-files/etc/uci-defaults/10_wifi_mesh
+
+Index: build_dir/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+===================================================================
+--- build_dir.orig/package/kernel/mac80211/files/lib/wifi/mac80211.sh
++++ build_dir/package/kernel/mac80211/files/lib/wifi/mac80211.sh
+@@ -118,7 +118,7 @@ get_band_defaults() {
+ 		[ -n "$mode_band" -a "$band" = "6g" ] && return
+ 
+ 		mode_band="$band"
+-		channel="$chan"
++		channel="auto"
+ 		htmode="$mode"
+ 	done
+ }
+@@ -203,14 +203,18 @@ detect_mac80211() {
+ 			set wireless.${name}.channel=${channel}
+ 			set wireless.${name}.band=${mode_band}
+ 			set wireless.${name}.htmode=$htmode
+-			set wireless.${name}.disabled=1
++			set wireless.${name}.disabled=0
++			set wireless.${name}.country=US
+ 
+ 			set wireless.default_${name}=wifi-iface
+ 			set wireless.default_${name}.device=${name}
+ 			set wireless.default_${name}.network=lan
+ 			set wireless.default_${name}.mode=ap
+-			set wireless.default_${name}.ssid=OpenWrt
+-			set wireless.default_${name}.encryption=none
++			set wireless.default_${name}.ssid=Opuntia
++			set wireless.default_${name}.encryption=psk2
++			set wireless.default_${name}.key=cactus
++			set wireless.default_${name}.ieee80211w=0
++
+ EOF
+ 		uci -q commit wireless
+ 	done
+```
