@@ -1,4 +1,5 @@
 0006-Add-license-info-to-overview-page.patch
+0007-Add-multiwan-to-network-config-ucitrack-list.patch
 0011-Change-OpenWRT-to-Opuntia-or-imagestream.patch
 0019-use-iwinfo-not-iwdata.patch
 801-wifi-alliance-cert-defaults.patch
