@@ -5,7 +5,6 @@ packages/0015-Remove-openvpn-sample-configs.patch
 packages/0028-Add-etc-rc.d-to-sysupgrade-so-service-start-stop-are.patch
 packages/0062-Set-root-password.patch
 packages/0073-Rebrand-uhttpd-cert-Opuntia.patch
-packages/0087-Set-default-ssid-Opuntia.patch
 packages/0106-iproute2-gre-keepalive-patch.patch
 0114-Change-release-name-to-Opuntia.patch
 0137-Rename-images-to-Opuntia.patch
@@ -25,7 +24,6 @@ packages/0188-net-snmp-5.7.3.patch
 packages/0191-ntpdate-missing-lib.patch
 packages/0801-wifi-alliance-cert-mods.patch
 packages/0159-swconfig-support-port-aliases-cpu-wan-lan.patch
-packages/0182-netifd-wireless-add-radius-macfilter.patch
 packages/0176-dnsmasq-add-user-group-to-init.patch
 packages/0177-firewall-fix-musl-errno-options-parsing.patch
 packages/0178-procps-ng-disable-modern-top.patch
@@ -56,12 +54,10 @@ packages/0243-lldpd-add-missing-limits-include.patch
 packages/0244-openvswitch-remove-l3-routing-table-full-bgp-feed.patch
 packages/0246-dnsmasq-add-subnet-feature.patch
 packages/0247-mwan3-check-if-enabled.patch
-packages/0248-netifd-proto-bonding-fixes.patch
 packages/0249-wireguard-fix-reload.patch
 kernel/0087-disable-mpls-routing.patch
 packages/0250-netifd-vxlan-support-addresses.patch
 packages/0251-dnsmasq-remove-static-proto-only-limitation.patch
-0232-Add-rbm11g-support.patch
 packages/ath10k-ct-remove-ibss-limit-avoid-register-failure.patch
 0234-Add-ImageStream-license-partition.patch
 packages/0235-Fix-dnsmasq-config-restore.patch
