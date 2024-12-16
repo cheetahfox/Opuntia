@@ -245,7 +245,7 @@ CONFIG_PACKAGE_luci-app-ipsec=y
 CONFIG_PACKAGE_luci-app-isis-license=y
 CONFIG_PACKAGE_luci-app-snmp=y
 CONFIG_PACKAGE_luci-theme-opuntia=y
-CONFIG_PACKAGE_stats=y
+# CONFIG_PACKAGE_stats is not set
 # CONFIG_PACKAGE_imagestream-uqmi is not set
 # CONFIG_PACKAGE_netifd-qmi is not set
 
