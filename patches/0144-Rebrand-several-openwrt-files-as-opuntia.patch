@@ -34,7 +34,7 @@ Index: build_dir/package/base-files/Makefile
 ===================================================================
 --- build_dir.orig/package/base-files/Makefile
 +++ build_dir/package/base-files/Makefile
-@@ -151,8 +151,8 @@ define Package/base-files/install
+@@ -187,8 +187,8 @@ define Package/base-files/install
  	$(VERSION_SED_SCRIPT) \
  		$(1)/etc/banner \
  		$(1)/etc/device_info \
@@ -96,9 +96,9 @@ Index: build_dir/package/base-files/files/bin/config_generate
  generate_network() {
  	local ports device macaddr protocol type ipaddr netmask vlan
  	local bridge=$2
-@@ -161,8 +161,8 @@ generate_network() {
+@@ -162,8 +162,8 @@ generate_network() {
  		static)
- 			local ipad
+ 			local ipad netm prefix
  			case "$1" in
 -				lan) ipad=${ipaddr:-"192.168.1.1"} ;;
 -				*) ipad=${ipaddr:-"192.168.$((addr_offset++)).1"} ;;
@@ -107,22 +107,11 @@ Index: build_dir/package/base-files/files/bin/config_generate
  			esac
  
  			netm=${netmask:-"255.255.255.0"}
-@@ -301,8 +301,8 @@ generate_static_system() {
- 	uci -q batch <<-EOF
- 		delete system.@system[0]
- 		add system system
--		set system.@system[-1].hostname='OpenWrt'
--		set system.@system[-1].timezone='UTC'
-+		set system.@system[-1].hostname='Opuntia'
-+		set system.@system[-1].timezone='America/Chicago'
- 		set system.@system[-1].ttylogin='0'
- 		set system.@system[-1].log_size='64'
- 		set system.@system[-1].urandom_seed='0'
 Index: build_dir/config/Config-images.in
 ===================================================================
 --- build_dir.orig/config/Config-images.in
 +++ build_dir/config/Config-images.in
-@@ -250,10 +250,10 @@ menu "Target Images"
+@@ -280,10 +280,10 @@ menu "Target Images"
  	config GRUB_TITLE
  		string "Title for the menu entry in GRUB"
  		depends on GRUB_IMAGES || GRUB_EFI_IMAGES
