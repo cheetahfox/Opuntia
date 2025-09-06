@@ -59,3 +59,7 @@ Index: build_dir/package/kernel/mac80211/files/lib/wifi/mac80211.sh
  		uci -q commit wireless
  	done
 ```
+
+### 0144-Rebranding patch
+
+This patch is likely causing the base-files package to fail I am removing it for now: 09-06-2025

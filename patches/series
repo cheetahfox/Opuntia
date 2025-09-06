@@ -8,7 +8,6 @@ packages/0073-Rebrand-uhttpd-cert-Opuntia.patch
 packages/0106-iproute2-gre-keepalive-patch.patch
 0114-Change-release-name-to-Opuntia.patch
 0137-Rename-images-to-Opuntia.patch
-0144-Rebrand-several-openwrt-files-as-opuntia.patch
 0160-Add-wpj344-support.patch
 0161-Add-wpj558-support.patch
 0162-Add-wpj531-support.patch
