@@ -189,7 +189,7 @@ CONFIG_DEFAULT_libmbedtls=y
 CONFIG_DEFAULT_libopenssl3=y
 CONFIG_DEFAULT_libpcap=y
 CONFIG_DEFAULT_libustream-openssl=y
-CONFIG_DEFAULT_lm-sensors=y
+# CONFIG_DEFAULT_lm-sensors is not set
 CONFIG_DEFAULT_logd=y
 CONFIG_DEFAULT_luci=y
 CONFIG_DEFAULT_luci-app-accesscontrol=y
