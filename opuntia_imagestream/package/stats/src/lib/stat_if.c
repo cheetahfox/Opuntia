@@ -1,6 +1,8 @@
 /* vi:set ts=3: */
 #include<string.h>
 #include<assert.h>
+#include<ctype.h>
+#include<unistd.h>
 #include<linux/sockios.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -11,6 +13,7 @@
 #include<linux/if.h>
 #include<arpa/inet.h>
 #include<sys/stat.h>
+#include<sys/ioctl.h>
 #include"stat_if.h"
 #include"read_proc.h"
 #include"conf.h"
@@ -601,7 +604,7 @@ void get_all_stats(void)
 		get_stats(nif);
 }
 
-link_if(stat_if **head, stat_if **tail, stat_if *stat, stat_if *next)
+int link_if(stat_if **head, stat_if **tail, stat_if *stat, stat_if *next)
 {
 	if (!next) // Link to the tail
 	{

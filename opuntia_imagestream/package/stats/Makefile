@@ -10,6 +10,8 @@ PKG_RELEASE:=1
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/nls.mk
 
+TARGET_CFLAGS += -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion
+
 define Package/stats
   SECTION:=net
   CATEGORY:=ImageStream

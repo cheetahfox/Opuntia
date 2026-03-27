@@ -4,7 +4,7 @@ OBJECTS=main.o summary.o detail.o csu.o info.o misc.o
 HEADERS=include/interface.h include/sdl_stats.h
 LIBS=-lStats -ltextbox -lpanel -lncurses
 
-OPTIONS=-O3 -L../lib -L../libtextbox -L/usr/local/lib
+OPTIONS=-O3 -L../lib -L../libtextbox -Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion
 #OPTIONS=-O3 -L../lib -L../libtextbox -L/usr/local/lib -msoft-float -mips16 -minterlink-mips16 -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro
 # Uncomment this line for debugging information
 #OPTIONS += -D __DEBUG__ -g

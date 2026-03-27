@@ -6,6 +6,7 @@
 #ifndef READ_PROC_H
 #define READ_PROC_H
 #include "stat_if.h"
+#include "conf.h"
 
 #ifndef TRUE
 #define TRUE 1
@@ -37,6 +38,10 @@
 extern int num_ifaces;
 extern stat_if *ifaces, *ifaces_tail;
 
+void ifConf(stat_if *nif, confTable *table, char *name);
+int sand_read(stat_if *stat);
+int net_ioctl_read(stat_if *stat);
+int net_read(stat_if *nif);
 void add_if(stat_if *stat);
 stat_if *find_if(stat_if *iface, const char *find);
 int has_ip(char *name);

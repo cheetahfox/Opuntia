@@ -1,5 +1,7 @@
 /* vi:set ts=3: */
 #include<stdio.h>
+#include<unistd.h>
+#include<sys/ioctl.h>
 #include<string.h>
 #include<stdlib.h>
 #include<sys/time.h>
