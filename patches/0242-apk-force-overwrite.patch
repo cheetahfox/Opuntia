@@ -1,0 +1,13 @@
+Index: build_dir/package/Makefile
+===================================================================
+--- build_dir.orig/package/Makefile
++++ build_dir/package/Makefile
+@@ -98,7 +98,7 @@ $(curdir)/install: $(TMP_DIR)/.build $(c
+ ifneq ($(CONFIG_USE_APK),)
+ 	$(file >$(TMP_DIR)/apk_install_list,\
+ 	    $(foreach pkg,$(shell cat $(PACKAGE_INSTALL_FILES) 2>/dev/null),$(pkg)$(call GetABISuffix,$(pkg))))
+-	$(call apk,$(TARGET_DIR)) add --no-cache --initdb --no-scripts --arch $(ARCH_PACKAGES) \
++	$(call apk,$(TARGET_DIR)) add --no-cache --initdb --no-scripts --force-overwrite --arch $(ARCH_PACKAGES) \
+ 		--repositories-file /dev/null --repository file://$(PACKAGE_DIR_ALL)/packages.adb \
+ 		$$(cat $(TMP_DIR)/apk_install_list) \
+ 			"base-files=$(shell cat $(TMP_DIR)/base-files.version)" \

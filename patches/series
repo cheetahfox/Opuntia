@@ -77,3 +77,6 @@ packages/0263-add-rpi-cm4-wifi-firmware.patch
 kernel/0094-rpi-9k-ethernet-mtu.patch
 0239-Fix-bcm27xx-f2fs-potential-garbage-overlay.patch
 0240-CM4-disable-msi-interrupts-for-unstable-pcie.patch
+0241-ppp-fix-mirror-hash.patch
+0242-apk-force-overwrite.patch
+packages/0265-lm-sensors-fix-libiconv-build.patch

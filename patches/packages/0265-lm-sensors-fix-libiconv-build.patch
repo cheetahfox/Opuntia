@@ -1,0 +1,27 @@
+Index: build_dir/feeds/packages/utils/lm-sensors/Makefile
+===================================================================
+--- build_dir.orig/feeds/packages/utils/lm-sensors/Makefile
++++ build_dir/feeds/packages/utils/lm-sensors/Makefile
+@@ -77,6 +77,15 @@ define Package/lm-sensors/conffiles
+ /etc/sensors.d
+ endef
+ 
++
++
++
++define Build/Configure
++	$(SED) '/^ifndef LIBICONV/,/^endif/d' $(PKG_BUILD_DIR)/Makefile
++	$(SED) '/^ALL_LDFLAGS/a LIBICONV :=' $(PKG_BUILD_DIR)/Makefile
++	$(SED) '/^LIBICONV.*shell printf/,/echo.*-liconv)/c LIBICONV :=' $(PKG_BUILD_DIR)/prog/sensors/Module.mk
++endef
++
+ define Build/Compile
+ 	+$(MAKE) $(PKG_JOBS) -C $(PKG_BUILD_DIR) \
+ 		$(TARGET_CONFIGURE_OPTS) \
+@@ -89,6 +98,7 @@ define Build/Compile
+ 		PREFIX="/usr" \
+ 		MACHINE="$(ARCH)" \
+ 		EXLDFLAGS="" \
++		LIBICONV="" \
+ 		user
+ endef
