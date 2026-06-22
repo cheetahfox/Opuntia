@@ -1,10 +1,8 @@
-Index: build_dir/scripts/getver.sh
-===================================================================
---- build_dir.orig/scripts/getver.sh
-+++ build_dir/scripts/getver.sh
-@@ -33,15 +33,14 @@ try_git() {
+--- a/scripts/getver.sh
++++ b/scripts/getver.sh
+@@ -36,15 +36,14 @@ try_git() {
  			UPSTREAM_BASE="$(git merge-base $GET_REV $ORIGIN)"
- 			UPSTREAM_REV="$(git rev-list ${REBOOT}..$UPSTREAM_BASE | wc -l | awk '{print $1}')"
+ 			UPSTREAM_REV="$(git rev-list ${REBOOT}..$UPSTREAM_BASE 2>/dev/null | wc -l | awk '{print $1}')"
  		else
 -			UPSTREAM_REV=0
 +			UPSTREAM_REV=$REV
@@ -20,11 +18,12 @@ Index: build_dir/scripts/getver.sh
  		;;
  	esac
  
-@@ -57,6 +56,9 @@ try_hg() {
+@@ -60,6 +59,9 @@ try_hg() {
  
  try_version || try_git || try_hg || REV="unknown"
  rel="${REV:1}"
 -for i in `cat feeds.conf | awk '{print $2}'`; do count=`git -C feeds/$i rev-list HEAD --count`; rel=$((rel+count)); done
+-REV="r$rel"
 +for i in `cat feeds.conf | awk '{print $2}'`; do [ -d feeds/$i/.git ] && { count=`git -C feeds/$i rev-list HEAD --count`; rel=$((rel+count)); } done
 +OPUNTIA_REBOOT=8028d458b2d91b68bc6aa66d38d43046f05e86d1
 +count="$(git -C .. rev-list ${OPUNTIA_REBOOT}..HEAD | wc -l | awk '{print $1}')"

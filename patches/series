@@ -1,7 +1,5 @@
 0002-combine-feed-versioning-to-release-number.patch
 0001-fix-getver.patch
-packages/0014-Update-openvpn-init-script.patch
-packages/0015-Remove-openvpn-sample-configs.patch
 packages/0028-Add-etc-rc.d-to-sysupgrade-so-service-start-stop-are.patch
 packages/0062-Set-root-password.patch
 packages/0073-Rebrand-uhttpd-cert-Opuntia.patch
@@ -65,7 +63,6 @@ packages/0253-collectd-stop-logging-stderr.patch
 packages/0255-protobuf-c-hostbuild.patch
 packages/0252-frr-scott-fixes.patch
 packages/0256-collectd-add-hwmon-temps.patch
-packages/0257-vim-disable-selinux.patch
 kernel/0089-add-ipvlan.patch
 kernel/0092-vrf.patch
 0235-Add-APB3500.patch

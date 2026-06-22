@@ -180,3 +180,7 @@ cd build_dir && make package/<pkgname>/clean && make package/<pkgname>/compile
 # See what's configured
 grep 'CONFIG_PACKAGE_' build_dir/.config
 ```
+
+## Changes to the repo
+
+Changes must be saved either as patches or updates to build system that will get checked in with the Repo. DO NOT make changes that are in the build dir. If needed, apply changes to makefiles or patches and then do a "make clean" to validate your changes are saved correctly

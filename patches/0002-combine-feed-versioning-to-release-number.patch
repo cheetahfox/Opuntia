@@ -1,6 +1,6 @@
 --- a/scripts/getver.sh
 +++ b/scripts/getver.sh
-@@ -31,4 +31,7 @@ try_hg() {
+@@ -59,4 +59,7 @@
  }
  
  try_version || try_git || try_hg || REV="unknown"
