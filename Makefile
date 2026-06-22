@@ -142,11 +142,11 @@ $(pre_patches):
 $(patches):
 	@cp -a patches $(BUILD_DIR)/ ;
 	cd $(BUILD_DIR); \
-	quilt push -af || (echo "$$patch failed to apply!" && exit 1); \
+	quilt push -af || { rc=$$?; [ $$rc -eq 2 ] || (echo "$$patch failed to apply!" && exit 1); }; \
 	cd ..; \
 	cp -a patches.luci $(BUILD_DIR)/feeds/luci/patches ; \
 	cd $(BUILD_DIR)/feeds/luci; \
-	quilt push -af || (echo "$$patch failed to apply!" && exit 1); \
+	quilt push -af || { rc=$$?; [ $$rc -eq 2 ] || (echo "$$patch failed to apply!" && exit 1); }; \
 	cd ../../..; \
 	touch $@
 
