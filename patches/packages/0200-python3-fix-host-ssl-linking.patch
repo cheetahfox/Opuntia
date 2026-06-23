@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Build Fix <build@local>
+Date: Mon, 23 Jun 2025 00:00:00 +0000
+Subject: [PATCH] python3: fix host _ssl linking
+
+The Python 3.14 host build fails during install because the _ssl module
+shared library cannot be linked. Two issues:
+
+1. The configure script sets MODULE__SSL_LDFLAGS with
+   -L$(STAGING_DIR_HOSTPKG)/lib, but the OpenSSL libraries are actually in
+   $(STAGING_DIR_HOST)/lib. Fix by correcting the SSL and HASHLIB LDFLAGS
+   paths after configure.
+
+2. --enable-optimizations causes PGO rebuilds which use Makefile.pre
+   (not the patched Makefile), leading to stale LDFLAGS. Remove it.
+
+---
+ feeds/packages/lang/python/python3/Makefile | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/feeds/packages/lang/python/python3/Makefile b/feeds/packages/lang/python/python3/Makefile
+index 1234567..abcdefg 100644
+--- a/feeds/packages/lang/python/python3/Makefile
++++ b/feeds/packages/lang/python/python3/Makefile
+@@ -317,7 +317,6 @@ endef
+ 
+ HOST_CONFIGURE_ARGS += \
+ 	--with-readline=no \
+-	--enable-optimizations \
+ 	--disable-test-modules \
+ 	--with-ensurepip=upgrade \
+ 	--with-ssl-default-suites=openssl \
+@@ -331,6 +330,8 @@ endef
+ define Host/Configure
+ 	$(SED) 's/^ENABLE_USER_SITE = None$$$$/ENABLE_USER_SITE = False/' $(HOST_BUILD_DIR)/Lib/site.py
+ 	$(call Host/Configure/Default)
++	$(SED) 's|MODULE__SSL_LDFLAGS=.*|MODULE__SSL_LDFLAGS=-L$(STAGING_DIR_HOST)/lib -lssl -lcrypto|' $(HOST_BUILD_DIR)/Makefile
++	$(SED) 's|MODULE__HASHLIB_LDFLAGS=.*|MODULE__HASHLIB_LDFLAGS=-L$(STAGING_DIR_HOST)/lib -lcrypto|' $(HOST_BUILD_DIR)/Makefile
+ 	ls $(HOST_BUILD_DIR)/Lib/ensurepip/_bundled/pip-$(PYTHON3_PIP_VERSION)-py3-none-any.whl
+ endef

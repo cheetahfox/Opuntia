@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Build Fix <build@local>
+Date: Mon, 23 Jun 2025 00:00:00 +0000
+Subject: [PATCH] python3: fix missing X509_VERIFY_PARAM_get_hostflags
+
+OpenSSL < 1.1.1l (including 1.1.1f used in OpenWrt) does not define
+X509_VERIFY_PARAM_get_hostflags, causing the _ssl module to fail to
+import at runtime with an "undefined symbol" error.
+
+Provide a macro stub that returns 0 when the function is not available.
+This is safe because the return value (flags) is only used for
+informational purposes and 0 is the default.
+
+---
+ feeds/packages/lang/python/python3/patches/028-fix-openssl-missing-hostflags.patch | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+ create mode 100644 feeds/packages/lang/python/python3/patches/028-fix-openssl-missing-hostflags.patch
+
+diff --git a/feeds/packages/lang/python/python3/patches/028-fix-openssl-missing-hostflags.patch b/feeds/packages/lang/python/python3/patches/028-fix-openssl-missing-hostflags.patch
+new file mode 100644
+index 0000000..1234567
+--- /dev/null
++++ b/feeds/packages/lang/python/python3/patches/028-fix-openssl-missing-hostflags.patch
+@@ -0,0 +1,14 @@
++--- a/Modules/_ssl.c
+++++ b/Modules/_ssl.c
++@@ -77,6 +77,10 @@
++ #ifdef LIBRESSL_VERSION_NUMBER
++ /* LibreSSL does not define this for some reason, but it does implement it */
++ unsigned int X509_VERIFY_PARAM_get_hostflags(X509_VERIFY_PARAM *param);
++ #endif
+++#ifndef X509_VERIFY_PARAM_get_hostflags
+++/* OpenSSL < 1.1.1l: no-op stub */
+++#define X509_VERIFY_PARAM_get_hostflags(param) (0)
+++#endif
++ 
++ struct py_ssl_error_code {
++     const char *mnemonic;

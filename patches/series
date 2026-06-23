@@ -79,3 +79,5 @@ kernel/0094-rpi-9k-ethernet-mtu.patch
 0242-apk-force-overwrite.patch
 packages/0265-lm-sensors-fix-libiconv-build.patch
 packages/0266-v2ray-geodata-remove-@-from-PROVIDES-for-apk-compat.patch
+packages/0200-python3-fix-host-ssl-linking.patch
+packages/0203-python3-fix-openssl-missing-hostflags.patch
