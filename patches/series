@@ -1,3 +1,4 @@
+tools-xxhash-fix-mirror-hash.patch
 0002-combine-feed-versioning-to-release-number.patch
 0001-fix-getver.patch
 packages/0028-Add-etc-rc.d-to-sysupgrade-so-service-start-stop-are.patch
