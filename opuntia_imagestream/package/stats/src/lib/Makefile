@@ -6,13 +6,12 @@ HEADERS=../include/stat_if.h
 LIBS=
 INCLUDE=-I../include
 CORE=core
-#OPTIONS=-msoft-float -mips16 -minterlink-mips16 -D_FORTIFY_SOURCE=1 -Wl,-z,now -Wl,-z,relro
 OPTIONS=-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=int-conversion
 
 .SUFFIXES: .cc .c .o
 
 .c.o: ${HEADERS}
-	$(CC) ${INCLUDE}  -O3 -c ${C_FLAGS} ${OPTIONS} $<
+	$(CC) $(CFLAGS) ${INCLUDE} -O3 -c ${OPTIONS} $<
 
 all: ${OBJECTS} ${TARGET}
 

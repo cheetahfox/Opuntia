@@ -1,17 +1,18 @@
 SUBDIRS=library src
 TARGET=stats
-VERSION=`cat version`
 
 .PHONY : library src clean
+
+CC ?= $(CROSS)gcc
 
 all: ${SUBDIRS}
 
 library:
-	VERSION="${VERSION}" && make -C lib CC=${CC}
+	$(MAKE) -C lib CC="$(CC)" CFLAGS="$(CFLAGS)"
 
 src:
-	VERSION="${VERSION}" && make -C src ${TARGET} CC=${CC}
+	$(MAKE) -C src ${TARGET} CC="$(CC)" CFLAGS="$(CFLAGS)"
 
 clean:
-	make -C lib clean
-	make -C src clean
+	$(MAKE) -C lib clean
+	$(MAKE) -C src clean
