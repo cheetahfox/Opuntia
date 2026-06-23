@@ -1,0 +1,12 @@
+{
+  "lastChangelogVersion": "0.79.10",
+  "theme": "dark",
+  "defaultProvider": "llama.cpp",
+  "defaultModel": "Qwopus3.6-27B-v2-MTP-Q8_0",
+  "httpIdleTimeoutMs": 1800000,
+  "retry": {
+    "provider": {
+      "maxRetryDelayMs": 0
+    }
+  }
+}
