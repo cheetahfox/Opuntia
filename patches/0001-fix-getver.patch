@@ -28,5 +28,5 @@
 +OPUNTIA_REBOOT=8028d458b2d91b68bc6aa66d38d43046f05e86d1
 +count="$(git -C .. rev-list ${OPUNTIA_REBOOT}..HEAD | wc -l | awk '{print $1}')"
 +rel=$((rel+count))
-+REV="r$rel-$(git rev-parse --short HEAD)"
++REV="r$rel"
  echo "$REV"
