@@ -88,17 +88,28 @@ install: $(built)
 	ver=`grep CONFIG_VERSION_NUMBER $(BUILD_DIR)/.config | cut -d '"' -f 2`; \
 	rel=`cd ${BUILD_DIR} && ./scripts/getver.sh`; \
 	factory=`find ${BUILD_DIR}/bin/ -name '*factory*' | head -n 1`; \
+	efi_iso=`find ${BUILD_DIR}/bin/ -name '*efi.iso' | head -n 1`; \
 	if [ ! -z $${factory} ]; then \
 		cp -f $${factory} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-factory.img; \
 	elif [ "$${combined}" != "" ] ; then \
-		cp -f $${combined} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-factory.img; \
+		if echo "$${combined}" | grep -q '\.gz$$'; then \
+			gzip -dc $${combined} > $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-factory.img; \
+		else \
+			cp -f $${combined} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-factory.img; \
+		fi; \
 	fi; \
-	if [ "$${combined}" != "" ] ; then \
-		cp -f $${combined} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-sysupgrade.bin; \
-	elif [ "$${sysup}" != "" ] ; then \
+	if [ "$${sysup}" != "" ] ; then \
 		cp -f $${sysup} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-sysupgrade.bin; \
+	elif [ "$${combined}" != "" ] ; then \
+		if echo "$${combined}" | grep -q '\.gz$$'; then \
+			gzip -dc $${combined} > $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-sysupgrade.bin; \
+		else \
+			cp -f $${combined} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-sysupgrade.bin; \
+		fi; \
+	fi; \
+	if [ ! -z $${efi_iso} ]; then \
+		cp -f $${efi_iso} $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-efi.iso; \
 	fi
-#		gzip -dc $${combined} > $(DESTDIR)/opuntia-$${conf}-$${ver}-$${rel}-factory.img; \
 
 docker_build:
 	sudo apt-get update && sudo apt-get install -y docker.io && \
