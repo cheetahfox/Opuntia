@@ -82,3 +82,4 @@ packages/0265-lm-sensors-fix-libiconv-build.patch
 packages/0266-v2ray-geodata-remove-@-from-PROVIDES-for-apk-compat.patch
 packages/0200-python3-fix-host-ssl-linking.patch
 packages/0203-python3-fix-openssl-missing-hostflags.patch
+packages/0300-base-files-fix-apk-version-invalid-r-prefix.patch
